@@ -44,7 +44,18 @@ export class TaskListComponent implements OnInit {
     }
     this.loadTasks();
   }
-
+  // ### Additional Features (Tasks 7-8)
+  // 7. **Task 7**: Implement proper error handling and loading states:
+  //    - Add error interceptors for API calls
+  //    - Implement loading spinners
+  //    - Add error messages and notifications
+  //    - Handle offline scenarios
+  
+  // 8. **Task 8**: Add form validation and user experience improvements:
+  //    - Implement reactive form validation
+  //    - Add date validation for due dates
+  //    - Show validation error messages
+  //    - Add confirmation dialogs for destructive actions
   deleteTask(id: number): void {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(id).subscribe(() => {
