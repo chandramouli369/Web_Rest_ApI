@@ -25,7 +25,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     this.loadTasks();
   }
-
+//Task3: Adding Sort Functionality by dates
   loadTasks(): void {
     this.taskService.getTasks({
       sortBy: this.sortBy,
