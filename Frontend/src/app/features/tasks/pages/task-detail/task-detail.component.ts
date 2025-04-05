@@ -42,7 +42,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private taskService: TaskService
   ) {
-    // ✅ Subscribe to paramMap for dynamic route changes
+    //  Subscribe to paramMap for dynamic route changes
     this.routeSub = this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       const id = idParam ? +idParam : null;
