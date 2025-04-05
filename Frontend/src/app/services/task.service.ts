@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task.model';
 import { environment } from '../../environments/environment';
@@ -10,14 +10,33 @@ import { environment } from '../../environments/environment';
 export class TaskService {
   private apiUrl = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl);
+  // ✅ Updated method to support sorting, filtering, pagination
+  getTasks(filters?: {
+    title?: string;
+    status?: string;
+    sortBy?: string;
+    desc?: boolean;
+    page?: number;
+    pageSize?: number;
+  }): Observable<Task[]> {
+    let params = new HttpParams();
+
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        const value = (filters as any)[key];
+        if (value !== undefined && value !== null && value !== '') {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<Task[]>(this.apiUrl, { params });
   }
 
   getTask(id: number): Observable<Task> {
-    return this.http.get<Task>(`http://localhost:5296/api/Tasks/${id}`);
+    return this.http.get<Task>(`${this.apiUrl}/${id}`);
   }
 
   createTask(task: Task): Observable<Task> {
@@ -31,4 +50,4 @@ export class TaskService {
   deleteTask(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-} 
+}
