@@ -175,6 +175,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.scss']
 })
+//Added Edit option
 export class TaskDetailComponent implements OnInit, OnDestroy {
   task: Task | null = null;
   editedTask: Task = {} as Task;
